@@ -10,13 +10,19 @@ package conversion;
  * @author Cristian
  */
 public class Conversor extends javax.swing.JFrame {
-
+    
+    
+    private String numeroEntrada;
+    private Controlador controlador; 
     /**
      * Creates new form NewJFrame
      */
     public Conversor() {
         initComponents();
+        this.numeroEntrada = "";
+        this.controlador = new Controlador();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +49,11 @@ public class Conversor extends javax.swing.JFrame {
         jLabel2.setText("Número a convertir:");
 
         botonConvertir.setText("Convertir");
+        botonConvertir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConvertirActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Número Romano equivalente:");
 
@@ -84,6 +95,15 @@ public class Conversor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConvertirActionPerformed
+        this.textoNumeroRomanoSalida.setText("");
+        numeroEntrada = this.textoNumeroDecimalEntrada.getText();
+
+        //validacion TODO
+        numeroEntrada = controlador.darFormato(numeroEntrada, numeroEntrada.length());
+        this.textoNumeroRomanoSalida.setText(controlador.convertirArabigoADecimal(numeroEntrada));
+    }//GEN-LAST:event_botonConvertirActionPerformed
 
     /**
      * @param args the command line arguments
