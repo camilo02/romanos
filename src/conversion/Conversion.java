@@ -16,6 +16,7 @@ public class Conversion {
        
     //int cantidadDigitosEntrada = numeroPrueba.length();
               
+    
     //System.out.println(convertirArabigoADecimal(darFormato(numeroPrueba,cantidadDigitosEntrada)));
     
     /*
