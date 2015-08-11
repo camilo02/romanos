@@ -5,25 +5,21 @@
  */
 package conversion;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cristian
  */
-public class Conversor extends javax.swing.JFrame {
+public class Conversor extends javax.swing.JFrame {       
     
-    
-    private String numeroEntrada;
     private Controlador controlador; 
-    /**
-     * Creates new form NewJFrame
-     */
+   
     public Conversor() {
-        initComponents();
-        this.numeroEntrada = "";
-        this.controlador = new Controlador();
+        initComponents();       
+        this.controlador = null;
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,11 +94,19 @@ public class Conversor extends javax.swing.JFrame {
 
     private void botonConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConvertirActionPerformed
         this.textoNumeroRomanoSalida.setText("");
-        numeroEntrada = this.textoNumeroDecimalEntrada.getText();
+        controlador = new Controlador(this.textoNumeroDecimalEntrada.getText());
+        if(!controlador.validarEntradaNumerica()){
+            System.out.println("wrong");
+            JOptionPane.showMessageDialog(null, "La entrada no es valida, asegurese de escribir un número en este campo");
 
-        //validacion TODO
-        numeroEntrada = controlador.darFormato(numeroEntrada, numeroEntrada.length());
-        this.textoNumeroRomanoSalida.setText(controlador.convertirArabigoADecimal(numeroEntrada));
+        } else if(!controlador.validarRango()){
+             JOptionPane.showMessageDialog(null, "La entrada no es valida, asegurese de escribir un número mayor que 0 y menor que 4000");
+        } else {
+            controlador.darFormato();
+            controlador.convertirArabigoARomano();
+            this.textoNumeroRomanoSalida.setText(controlador.getNumeroRomanoSalida());
+        }
+        
     }//GEN-LAST:event_botonConvertirActionPerformed
 
     /**

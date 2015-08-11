@@ -8,55 +8,64 @@ package conversion;
  */
 public class Controlador {
 
-    /**
-     * @param args the command line arguments
-     */
-    final String numeroPrueba = "999";
+    private String numeroArabigoEntrada;
+    private final int cantidadDigitosEntrada;
+    private String numeroRomanoSalida;
 
-    //int cantidadDigitosEntrada = numeroPrueba.length();
-    //System.out.println(convertirArabigoADecimal(darFormato(numeroPrueba,cantidadDigitosEntrada)));
-    public Boolean validarEntrada() {
-        //TODO
-        return false;
+    final String[] unidadesRomanas = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+    final String[] decenasRomanas = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+    final String[] centenasRomanas = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+    final String[] millaresRomanas = {"", "M", "MM", "MMM"};
+
+    public Controlador(String numeroEntrada) {
+        this.numeroArabigoEntrada = numeroEntrada;
+        this.cantidadDigitosEntrada = numeroEntrada.length();
+        this.numeroRomanoSalida = "";
     }
+
+    public boolean validarEntradaNumerica() {
+        try {
+            Integer.parseInt(numeroArabigoEntrada);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
+    }
+    
+    public boolean validarRango(){
+        return Integer.parseInt(numeroArabigoEntrada) > 0 && Integer.parseInt(numeroArabigoEntrada) < 4000;                               
+    }
+
     /*
      * dependiendo de la longitud se agregan tantos ceros como sea necesario
      */
-
-    public String darFormato(String numeroEntrada, int cantidadDigitosEntrada) {
+    public void darFormato() {
         if (cantidadDigitosEntrada == 3) {
-            numeroEntrada = "0" + numeroEntrada;
-        }
-        if (cantidadDigitosEntrada == 2) {
-            numeroEntrada = "00" + numeroEntrada;
+            this.numeroArabigoEntrada = "0" + numeroArabigoEntrada;
+        } else if (cantidadDigitosEntrada == 2) {
+            this.numeroArabigoEntrada = "00" + numeroArabigoEntrada;
         } else if (cantidadDigitosEntrada == 1) {
-            numeroEntrada = "000" + numeroEntrada;
+            this.numeroArabigoEntrada = "000" + numeroArabigoEntrada;
         }
-        return numeroEntrada;
+
     }
 
-    public String convertirArabigoADecimal(String numeroEntrada) {
+    public void convertirArabigoARomano() {
 
         int[] digitosArabigos = {0, 0, 0, 0};
-        String romanoSalida = "";
 
         for (int i = 0; i < 4; i++) {
-            digitosArabigos[i] = Character.getNumericValue(numeroEntrada.charAt(i));
+            digitosArabigos[i] = Character.getNumericValue(numeroArabigoEntrada.charAt(i));
         }
 
         for (int posicion = 0; posicion < digitosArabigos.length; posicion++) {
-            romanoSalida = romanoSalida + obtenerDigitoRomano(digitosArabigos[posicion], posicion);
+            setNumeroRomanoSalida(getNumeroRomanoSalida() + obtenerDigitoRomano(digitosArabigos[posicion], posicion));
         }
 
-        return romanoSalida;
     }
 
     public String obtenerDigitoRomano(int digitoArabigo, int posicion) {
-
-        final String[] unidadesRomanas = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
-        final String[] decenasRomanas = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
-        final String[] centenasRomanas = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
-        final String[] millaresRomanas = {"", "M", "MM", "MMM"};
 
         String digitoRomano = "";
 
@@ -71,6 +80,20 @@ public class Controlador {
         }
 
         return digitoRomano;
+    }
+
+    /**
+     * @return the numeroRomanoSalida
+     */
+    public String getNumeroRomanoSalida() {
+        return numeroRomanoSalida;
+    }
+
+    /**
+     * @param numeroRomanoSalida the numeroRomanoSalida to set
+     */
+    public void setNumeroRomanoSalida(String numeroRomanoSalida) {
+        this.numeroRomanoSalida = numeroRomanoSalida;
     }
 
 }
