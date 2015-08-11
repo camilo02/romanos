@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package conversion;
 
@@ -18,6 +15,7 @@ public class Conversor extends javax.swing.JFrame {
     public Conversor() {
         initComponents();       
         this.controlador = null;
+        this.setLocationRelativeTo(null);
     }
     
     /**
@@ -37,10 +35,11 @@ public class Conversor extends javax.swing.JFrame {
         textoNumeroRomanoSalida = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Conversor");
         setResizable(false);
 
         textoTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textoTitulo.setText("Conversor de Números en Sistema Decimal a Números Romanos");
+        textoTitulo.setText("Conversor de números en Sistema Decimal a Romanos");
 
         jLabel2.setText("Número a convertir:");
 
@@ -53,30 +52,35 @@ public class Conversor extends javax.swing.JFrame {
 
         jLabel3.setText("Número Romano equivalente:");
 
+        textoNumeroRomanoSalida.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
+                .addComponent(textoTitulo)
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(textoTitulo)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(textoNumeroRomanoSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                            .addComponent(textoNumeroDecimalEntrada, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(textoNumeroRomanoSalida, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoNumeroDecimalEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(botonConvertir))
                     .addComponent(jLabel2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(textoTitulo)
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -86,7 +90,7 @@ public class Conversor extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(textoNumeroRomanoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,13 +98,16 @@ public class Conversor extends javax.swing.JFrame {
 
     private void botonConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConvertirActionPerformed
         this.textoNumeroRomanoSalida.setText("");
+        
         controlador = new Controlador(this.textoNumeroDecimalEntrada.getText());
         if(!controlador.validarEntradaNumerica()){
-            System.out.println("wrong");
+            
             JOptionPane.showMessageDialog(null, "La entrada no es valida, asegurese de escribir un número en este campo");
 
         } else if(!controlador.validarRango()){
+            
              JOptionPane.showMessageDialog(null, "La entrada no es valida, asegurese de escribir un número mayor que 0 y menor que 4000");
+             
         } else {
             controlador.darFormato();
             controlador.convertirArabigoARomano();
@@ -141,6 +148,7 @@ public class Conversor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Conversor().setVisible(true);
+                
             }
         });
     }

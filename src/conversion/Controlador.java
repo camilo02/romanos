@@ -55,7 +55,7 @@ public class Controlador {
 
         int[] digitosArabigos = {0, 0, 0, 0};
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < digitosArabigos.length; i++) {
             digitosArabigos[i] = Character.getNumericValue(numeroArabigoEntrada.charAt(i));
         }
 
@@ -66,7 +66,7 @@ public class Controlador {
     }
 
     public String obtenerDigitoRomano(int digitoArabigo, int posicion) {
-
+        
         String digitoRomano = "";
 
         if (posicion == 0) {
